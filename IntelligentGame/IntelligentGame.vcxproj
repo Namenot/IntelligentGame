@@ -26,6 +26,7 @@
     <ClInclude Include="backend.h" />
     <ClInclude Include="frontend.h" />
     <ClInclude Include="Neat.h" />
+    <ClInclude Include="netdefault.h" />
     <ClInclude Include="openfiles.h" />
     <ClInclude Include="openglblock.h" />
     <ClInclude Include="openglentity.h" />
@@ -35,9 +36,13 @@
     <ClInclude Include="utilities.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="add.cl" />
     <None Include="backend.misc" />
+    <None Include="multiply.cl" />
+    <None Include="multiplyMatrix.misc" />
     <None Include="neat.cl" />
     <None Include="opengl.misc" />
+    <None Include="test.cl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -117,10 +122,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Users\Aaron\Desktop\Glew and Glut\glew-1.11.0\include;C:\Users\Aaron\Desktop\Glew and Glut\freeglut\include;$(AMDAPPSDKROOT)\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>freeglut.lib;glew32s.lib;OpenCL.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(AMDAPPSDKROOT)\lib\x86;C:\Users\Aaron\Desktop\Glew and Glut\glew-1.11.0\lib;C:\Users\Aaron\Desktop\Glew and Glut\freeglut\lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -130,10 +138,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Users\Aaron\Desktop\Glew and Glut\glew-1.11.0\include;C:\Users\Aaron\Desktop\Glew and Glut\freeglut\include;$(AMDAPPSDKROOT)\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(AMDAPPSDKROOT)\lib\x86;C:\Users\Aaron\Desktop\Glew and Glut\glew-1.11.0\lib;C:\Users\Aaron\Desktop\Glew and Glut\freeglut\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freeglut.lib;glew32s.lib;OpenCL.lib;</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

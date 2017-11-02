@@ -1,0 +1,76 @@
+/*
+array[ 0, 1, 2, |
+	   3, 4, 5, | row
+	   6, 7, 8] V
+       __ __ _> colums 
+
+	   M1 = (x - ((mat1[0] * mat1[1])*(x-1)))+2
+*/
+
+---------------------------------------------------
+
+	/*
+	Test *ptrs
+	*/
+
+	//printf("m1[%i] = %i\n", x-2, mat1[x-2]);
+	//printf("m1[%i] = %i\n", x-2, mat2[x-2]);
+	//printf("m1[%i] = %i\n", x-2, out[x-2]);
+
+	/*
+	End Test
+	*/
+	--------------------------------------------
+	
+	int posM1;
+	int posM2;
+    int posOut;
+
+	int m1size;
+	int m2size;
+	int outsize;
+
+	int xm1;
+	int xm2;
+	int xout;
+
+	int m2colum; 
+	int m2row;
+
+	m1size  = mat1[0] * mat1[1];
+	m2size  = mat2[0] * mat2[1];
+	outsize =  out[0] *  out[1];
+
+	xm1 = x - m1size*(x-1);
+	xm2 = x - m2size*(x-1);
+	xout = x - (outsize*(x-1));
+
+	m2colum = x / m1size; 
+	m2row = (xm1 - (xm1/ mat2[1]) * mat2[1]); 
+
+	posM1 = xm1 + 2;
+	posM2 = m2colum + m2row*mat2[1];
+	posOut = xout + 2;
+
+	out[posOut] += mat1[posM1] * mat2[posM2]; 
+
+	-----------------------------------------
+		
+	int Apos = x / B[0];
+
+	//output[] += mat1[m1pos] * mat2[];
+
+----------------------------------------------
+/*				
+				   0  1  2		 | |  :0 * 0; x = 0; y = 0		| |  :3 * 1; x = 3; y = 1		| |  :6 * 2; x = 6; y = 2
+			 	   3  4  5		 | |  :1 * 3; x = 1; y = 0		| |  :4 * 4; x = 4; y = 1		| |  :7 * 5; x = 7; y = 2
+			  	   6  7  8		 | |  :2 * 6; x = 2; y = 0		| |  :5 * 7; x = 5; y = 1		| |  :8 * 8; x = 8; y = 2
+				  _________
+	    0  1  2  |
+	    3  4  5  | 
+	    6  7  8  |  				 
+
+		matrix defined as ==> [height x width]
+
+
+*/

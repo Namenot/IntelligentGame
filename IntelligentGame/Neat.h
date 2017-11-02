@@ -79,7 +79,5 @@ int createNet(FILE *kern, char *Net)
 	ret = clReleaseContext(context);
 
 
-	freemem();
-
 
 }

@@ -71,6 +71,9 @@
     <ClInclude Include="utilities.h">
       <Filter>Header Files\utilities</Filter>
     </ClInclude>
+    <ClInclude Include="netdefault.h">
+      <Filter>Header Files\CL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="opengl.misc">
@@ -80,6 +83,18 @@
       <Filter>misc</Filter>
     </None>
     <None Include="neat.cl">
+      <Filter>Header Files\CL\kernel</Filter>
+    </None>
+    <None Include="add.cl">
+      <Filter>Header Files\CL\kernel</Filter>
+    </None>
+    <None Include="multiplyMatrix.misc">
+      <Filter>misc</Filter>
+    </None>
+    <None Include="multiply.cl">
+      <Filter>Header Files\CL\kernel</Filter>
+    </None>
+    <None Include="test.cl">
       <Filter>Header Files\CL\kernel</Filter>
     </None>
   </ItemGroup>
