@@ -17,10 +17,14 @@ Ansatz:
   Mutation des Netzes kann sowohl als Neuron als auch als Layer verstanden
   werden. Das bedeutet, dass es auf verschiedenen groessen operieren muss. Somit
   muss gesichert sein, in welchem Stil die Mutationen vonstatten gehen.
-  Dies koennte darueber geloesst werden, dass man Mutations dauer angibt
+  Dies koennte darueber geloest werden, dass man Mutations dauer angibt
   (heisst) mit welcher dauer das Netzwerk trainiert wird und (Bsp. Jahrhunderte
   Entwicklung zu einer ausgebildeten Spezies (Bsp. der Natur) oder nur Jahre).
   {Je mehr Zeit desto kleiner die Mutation}
+
+  Um dies zu erreichen, muss ein Generationen und Paarungskoinzept entwickelt 
+  werden. Dieses orientiert sich an Genetischermutation und Paarung (Bio-
+  Schachen / Notizen benutzen). 
 
 --------------------------------------------------------------------------------
 [Wichtiges]

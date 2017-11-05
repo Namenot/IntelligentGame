@@ -71,7 +71,10 @@
     <ClInclude Include="utilities.h">
       <Filter>Header Files\utilities</Filter>
     </ClInclude>
-    <ClInclude Include="netdefault.h">
+    <ClInclude Include="matrices.h">
+      <Filter>Header Files\CL</Filter>
+    </ClInclude>
+    <ClInclude Include="netcore.h">
       <Filter>Header Files\CL</Filter>
     </ClInclude>
   </ItemGroup>

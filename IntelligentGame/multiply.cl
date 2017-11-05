@@ -11,30 +11,32 @@ __kernel void
 			 __global int *B, 
 			 __global int *C)
 {
-  	int x = get_global_id(0); /* size of A */
-	int y = get_global_id(1); /* height of b | width of A */
 
+  	int x = get_global_id(0); 
+	int y = get_global_id(1); 
+
+	int allow = 1;
+	
 	if(x >= A[0] * A[1] || y >= B[0])
 	{
 		x = 0;
 		y = 0;
+		allow = 0;
 	}
 
-	int rowA = x-((x/A[1]) * B[0]); //z.B. [0, 3, 6] -> 0 || [1, 4, 7] -> 1 || [2, 5, 8] -> 2 for matrix down below
-	int bpos = rowA*B[1] + y;
-
-
-	int cpos = ((x / A[1]) * C[1]) + y + 2;
-
-	C[cpos] = A[x+ 2] * B[bpos];
+	int rowB = x-((x/A[1]) * B[0]);	//z.B. [9, 6, 3] -> 0 || [8, 5, 2] -> 1 || [7, 4, 1] -> 2
+	int rowA = x/A[1];			//z.B. [0, 3, 6] -> 0 || [1, 4, 7] -> 1 || [2, 5, 8] -> 2 
 	
-	printf("x : %i \ny : %i \n\n", x, y);
-	
+	int b = rowB*B[1] + y; 
+	int c = rowA * C[1] + y;
+
+	int AtimesB = A[x+2] * B[b+2];
+
+
+	if(allow != 0)
+	{
+		C[c+2] +=  AtimesB;	
+		printf("-");
+	}
+
 }
-
-/*
-array[ 0, 1, 2, |
-	   3, 4, 5, | row
-	   6, 7, 8] V
-       __ __ _> colums 
-*/

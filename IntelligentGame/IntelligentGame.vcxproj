@@ -26,7 +26,8 @@
     <ClInclude Include="backend.h" />
     <ClInclude Include="frontend.h" />
     <ClInclude Include="Neat.h" />
-    <ClInclude Include="netdefault.h" />
+    <ClInclude Include="matrices.h" />
+    <ClInclude Include="netcore.h" />
     <ClInclude Include="openfiles.h" />
     <ClInclude Include="openglblock.h" />
     <ClInclude Include="openglentity.h" />

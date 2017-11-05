@@ -10,17 +10,31 @@
 
 int sortsys(int *m1, int *m2)//-----------------------------------------------------------------------------------------------------------------------
 {
-	if (m1[0] == m2[1])
+
+	int ret;
+	if (m1[1] == m2[0])
 	{
-		return 1;
+		ret =  1;
 	}
-	else if (m1[1] == m2[0])
+	else if (m1[0] == m2[1])
 	{
-		return 2;
+		ret =  2;
 	}
 	else {
-		return 0;
-	} // test
+		ret = 0;
+	}
+
+	return ret;
+}
+
+void fill(int *C, int size, int num)
+{
+	int i;
+	for (i = 0; size+2 > i; i++)
+	{
+		C[i] = num;
+	}
+
 
 }
 
@@ -34,7 +48,6 @@ int getGlobalitemsize(int min)
 		newmin++;
 		testmin++;
 	}
-	printf("newmin = %i\n", newmin);
 	return newmin;
 }
 
@@ -135,7 +148,17 @@ void MatrixOP(int *matrix, int *matrix2, int *output, FILE* prog, int *sizes, si
 	end Kernel Arguments
 	*/
 
-	size_t local_item_size[2] = { 16, 8 };
+	size_t local_item_size[2];
+	if (dim == 1)
+	{
+		local_item_size[0] = 16;
+		local_item_size[1] = 8;
+	}
+	else
+	{
+		local_item_size[0] = 1;
+		local_item_size[1] = 1;
+	}
 
 	ret = clEnqueueNDRangeKernel(command_queue, kernel, dim, NULL, global_item_size, local_item_size, 0, NULL, NULL);
 	ret = clEnqueueReadBuffer(command_queue, out, CL_TRUE, 0, size3 * sizeof(int *), output, 0, NULL, NULL);
@@ -164,6 +187,8 @@ void addMatrix(int *m1, int *m2, int *out)
 	size[1] = sizes;
 	size[2] = sizes;
 	
+	fill(out, sizes, 0);
+
 	out[0] = m1[0];
 	out[1] = m2[1];
 
@@ -180,8 +205,6 @@ void addMatrix(int *m1, int *m2, int *out)
 	size_t global_item_size[1];
 	global_item_size[0] = getGlobalitemsize(size[0]);
 
-	printf("global_item_size = %i\n", global_item_size[0]);
-
 	MatrixOP(m1, m2, out, add, size_ptr, global_item_size, 1);
 
 
@@ -190,7 +213,7 @@ void addMatrix(int *m1, int *m2, int *out)
 void multiplyMatrix(int *m1, int *m2, int *out)
 {
 	int *m1_ptr = NULL;
-	int *m2_ptr = NULLk;
+	int *m2_ptr = NULL;
 
 	int size[3];
 	size[0] = m1[0] * m1[1] + 2;
@@ -204,10 +227,12 @@ void multiplyMatrix(int *m1, int *m2, int *out)
 	if (sort != 0) {
 		if (sort == 1)
 		{
-			size[2] = m1[1] * m2[0] + 2;
+			size[2] = m1[0] * m2[1] + 2;
 
-			out[0] = m1[1];
-			out[1] = m2[0];
+			fill(out, size[2], 0);
+
+			out[0] = m1[0];
+			out[1] = m2[1];
 
 			m1_ptr = m1;
 			m2_ptr = m2;
@@ -215,10 +240,12 @@ void multiplyMatrix(int *m1, int *m2, int *out)
 		}
 		else if (sort == 2)
 		{
-			size[2] = m1[0] * m2[1];
+			size[2] = m1[1] * m2[0] + 2;
 
-			out[0] = m1[0];
-			out[1] = m2[1];
+			fill(out, size[2], 0);
+
+			out[0] = m2[0];
+			out[1] = m1[1];
 
 			m1_ptr = m2;
 			m2_ptr = m1;
@@ -239,8 +266,8 @@ void multiplyMatrix(int *m1, int *m2, int *out)
 	size_ptr = size;
 
 	FILE* multi;
-	//multi = fopen("multiply.cl","r");
-	multi = fopen("test.cl", "r");
+	multi = fopen("multiply.cl","r");
+	//multi = fopen("test.cl", "r");
 
 	if (!multi)
 	{
@@ -252,10 +279,12 @@ void multiplyMatrix(int *m1, int *m2, int *out)
 	global_item_size[0] = getGlobalitemsize(size[0]);
 	global_item_size[1] = getGlobalitemsize(m2[0]);
 
-	printf("global_item_size[0] =  %i;\n", global_item_size[0]);
-	printf("global_item_size[1] =  %i;\n", global_item_size[1]);
+
+	printf("|");
 
  	MatrixOP(m1_ptr, m2_ptr, out, multi, size_ptr, global_item_size, 2);
+
+	printf("|\n");
 
 }
 /*
@@ -265,9 +294,3 @@ matrix:
 [1] = width (for e.g. 30)
 */
 
-/*
-TODO 
-1) ajust add.cl to the multidimensional thing
-2) finish multiplyMatrix() ( find cpos )
-3) ajust global_item_size in MatrixOP (global_item_size[0] = height von M1(?) | global_item_size[1] = width of M2(?) )
-*/

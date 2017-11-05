@@ -74,3 +74,27 @@ array[ 0, 1, 2, |
 
 
 */
+
+
+/*
+________________________________________________________________________________
+
+netconf[]
+0 : amountoflayers
+return -> till END
+{
+1 : layersize (amount of Neurons in a layer)
+}
+________________________________________________________________________________
+
+net[]
+retrun -> till END
+{
+0 : aktivation
+	retrun -> till x = size of next-layer
+	{
+	1: connection to the neuron x in next-layer
+	}
+}
+________________________________________________________________________________
+*/
