@@ -2,38 +2,45 @@
 
 [Netzwerk Zsmspiel]
 
-Netzwerk, dass den Neat-Algorythmus fuer jedes einzelne Layer verwendet.
-Das bedeutet, dass ein Neat-Algorythmus verwendet wird, um die Menge und staerke
-(staerke = Menge an Neuronen) jedes Layers vorgiebt.
+Netzwerk, dass den Neat-Algorythmus fuer jedes einzelne Layer
+verwendet. Das bedeutet, dass ein Neat-Algorythmus verwendet 
+wird, um die Menge und staerke (staerke = Menge an Neuronen)
+jedes Layers vorgiebt.
 
---------------------------------------------------------------------------------
+--------------------------------------------------------------
 [Neat]
 
-variable (heisst, dass es sowohl ganze Netzwerke als auch einfach nur Layer-
+variable (heisst, dass es sowohl ganze Netzwerke als auch 
+einfach nur Layer-
 Systeme entwickel kann).
 
 Ansatz:
 
-  Mutation des Netzes kann sowohl als Neuron als auch als Layer verstanden
-  werden. Das bedeutet, dass es auf verschiedenen groessen operieren muss. Somit
-  muss gesichert sein, in welchem Stil die Mutationen vonstatten gehen.
-  Dies koennte darueber geloest werden, dass man Mutations dauer angibt
-  (heisst) mit welcher dauer das Netzwerk trainiert wird und (Bsp. Jahrhunderte
-  Entwicklung zu einer ausgebildeten Spezies (Bsp. der Natur) oder nur Jahre).
+  Mutation des Netzes kann sowohl als Neuron als auch als 
+  Layer verstanden werden. Das bedeutet, dass es auf 
+  verschiedenen groessen operieren muss. Somit muss gesichert 
+  sein, in welchem Stil die Mutationen vonstatten gehen. Dies 
+  koennte darueber geloest werden, dass man Mutations dauer 
+  angibt (heisst) mit welcher dauer das Netzwerk trainiert 
+  wird 
+  (Bsp. Jahrhunderte Entwicklung zu einer 
+  ausgebildeten Spezies (Bsp. der Natur) oder nur Jahre). 
   {Je mehr Zeit desto kleiner die Mutation}
 
-  Um dies zu erreichen, muss ein Generationen und Paarungskoinzept entwickelt 
-  werden. Dieses orientiert sich an Genetischermutation und Paarung (Bio-
-  Schachen / Notizen benutzen). 
+  Um dies zu erreichen, muss ein Generationen und 
+  Paarungskoinzept entwickelt werden. Dieses orientiert sich
+  an Genetischermutation und Paarung (Bio-Schachen / Notizen
+  benutzen). 
 
---------------------------------------------------------------------------------
+--------------------------------------------------------------
 [Wichtiges]
 
-<1> dynamische Auswahl der trainingsmethode basierend auf Netz- und Inputtyp
-    (Netzwerk entscheidet das ?)
+<1> dynamische Auswahl der trainingsmethode basierend auf
+	Netz- und Inputtyp (Netzwerk entscheidet das ?)
+
 <2> Alpha kein GUI erst ab Beta wird sich darauf konzentriert
 
---------------------------------------------------------------------------------
+--------------------------------------------------------------
 [Netztypen]
 
 Lernregeln:
@@ -45,10 +52,10 @@ Lernregeln:
 Typen:
   - Multi-Layer Netze
   - Zusammenhangslose Netze (Netze ohne Layerstrucktur)
-  - Strukturierte Twitter Netze (Zusammenhangslose Netze die hintereinander als
-    Layerstrucktur geschaltet sind)
-  - Zusammenhangslose Twitter Netze (Zusammenhangslose Netze die
-    Zusammenhangslos aneinander geschaltet sind)
+  - Strukturierte Twitter Netze (Zusammenhangslose Netze die 
+	hintereinander als Layerstrucktur geschaltet sind)
+  - Zusammenhangslose Twitter Netze (Zusammenhangslose Netze 
+	die Zusammenhangslos aneinander geschaltet sind)
 
---------------------------------------------------------------------------------
+--------------------------------------------------------------
 
