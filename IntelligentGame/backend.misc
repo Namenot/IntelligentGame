@@ -1,6 +1,6 @@
 #pragma once
 
-[Netzwerk Zsmspiel]
+[Netzwerk Zusammenspiel]
 
 Netzwerk, dass den Neat-Algorythmus fuer jedes einzelne Layer
 verwendet. Das bedeutet, dass ein Neat-Algorythmus verwendet 

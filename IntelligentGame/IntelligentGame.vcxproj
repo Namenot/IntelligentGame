@@ -33,6 +33,7 @@
     <ClInclude Include="openglentity.h" />
     <ClInclude Include="openglinit.h" />
     <ClInclude Include="openglvfx.h" />
+    <ClInclude Include="sigmoid.h" />
     <ClInclude Include="terminal.h" />
     <ClInclude Include="utilities.h" />
   </ItemGroup>
@@ -43,6 +44,7 @@
     <None Include="multiplyMatrix.misc" />
     <None Include="neat.cl" />
     <None Include="opengl.misc" />
+    <None Include="sigmoid.cl" />
     <None Include="test.cl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

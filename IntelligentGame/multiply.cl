@@ -1,23 +1,24 @@
 
 /*
- * multiply.cl
- * Matrix multiplication : A * B = C
+ * test.cl
+ * Test features of OpenCL without 
+ * deleting code of the other kernels
  *
  */
 
 
 __kernel void 
-	MatrixOp(__global int *A,
-			 __global int *B, 
-			 __global int *C)
+	MatrixOp(__global float *A,
+			 __global float *B, 
+			 __global float *C)
 {
 
-  	int x = get_global_id(0); 
-	int y = get_global_id(1); 
+  	int x = get_global_id(1); 
+	int y = get_global_id(0); 
 
 	int allow = 1;
 	
-	if(x >= A[0] * A[1] || y >= B[0])
+	if((float)x >= A[0] * A[1] || (float)y >= B[1])
 	{
 		x = 0;
 		y = 0;
@@ -30,13 +31,14 @@ __kernel void
 	int b = rowB*B[1] + y; 
 	int c = rowA * C[1] + y;
 
-	int AtimesB = A[x+2] * B[b+2];
+	float AtimesB = A[x+2] * B[b+2];
 
 
 	if(allow != 0)
 	{
-		C[c+2] +=  AtimesB;	
+		C[c+2] +=  A[x+2] * B[b+2];
 		printf("-");
 	}
+	
 
 }

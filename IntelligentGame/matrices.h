@@ -8,7 +8,7 @@
 
 #define MAX_SOURCE_SIZE (0x100000)
 
-int sortsys(int *m1, int *m2)//-----------------------------------------------------------------------------------------------------------------------
+int sortsys(float *m1, float *m2)//-----------------------------------------------------------------------------------------------------------------------
 {
 
 	int ret;
@@ -27,14 +27,14 @@ int sortsys(int *m1, int *m2)//-------------------------------------------------
 	return ret;
 }
 
-void fill(int *C, int size, int num)
+void fill(float *C, int size, int num)
 {
 	int i;
+
 	for (i = 0; size+2 > i; i++)
 	{
 		C[i] = num;
 	}
-
 
 }
 
@@ -43,7 +43,7 @@ int getGlobalitemsize(int min)
 	int newmin = min;
 	float testmin = min;
 
-	while ((newmin / 8) != (testmin / 8))
+	while (newmin / 8  != testmin / 8 )
 	{
 		newmin++;
 		testmin++;
@@ -82,15 +82,12 @@ void checkCLMeMError(cl_int ret)
 
 }
 
-void MatrixOP(int *matrix, int *matrix2, int *output, FILE* prog, int *sizes, size_t *global_item_size, int dim)//----------------------------------------------------------------------------------------------
+void MatrixOP(float *matrix, float *matrix2, float *output, FILE* prog, int *sizes, size_t *global_item_size, int dim)//----------------------------------------------------------------------------------------------
 {
 
 	int size1 = sizes[0];
 	int size2 = sizes[1];
 	int size3 = sizes[2];
-
-	FILE *add;
-	add = fopen("add.cl", "r");
 
 	char *source_str;
 	size_t source_size;
@@ -156,12 +153,17 @@ void MatrixOP(int *matrix, int *matrix2, int *output, FILE* prog, int *sizes, si
 	}
 	else
 	{
-		local_item_size[0] = 1;
+		local_item_size[0] = global_item_size[0]; // hier noch nachgucken / ueberlegen
 		local_item_size[1] = 1;
 	}
 
 	ret = clEnqueueNDRangeKernel(command_queue, kernel, dim, NULL, global_item_size, local_item_size, 0, NULL, NULL);
+
+	printf("size3 : %i\n", size3);
+	printf("new size3 : %i\n", size3* sizeof(int *));
 	ret = clEnqueueReadBuffer(command_queue, out, CL_TRUE, 0, size3 * sizeof(int *), output, 0, NULL, NULL);
+
+	printf("?\n");
 
 	ret = clFlush(command_queue);
 	ret = clFinish(command_queue);
@@ -178,7 +180,7 @@ void MatrixOP(int *matrix, int *matrix2, int *output, FILE* prog, int *sizes, si
 }
 
 
-void addMatrix(int *m1, int *m2, int *out)
+void addMatrix(float *m1, float *m2, float *out)
 {
 	int sizes = m1[0] * m2[1] + 2;
 
@@ -210,10 +212,10 @@ void addMatrix(int *m1, int *m2, int *out)
 
 }
 
-void multiplyMatrix(int *m1, int *m2, int *out)
+void multiplyMatrix(float *m1, float *m2, float *out)
 {
-	int *m1_ptr = NULL;
-	int *m2_ptr = NULL;
+	float *m1_ptr = NULL;
+	float *m2_ptr = NULL;
 
 	int size[3];
 	size[0] = m1[0] * m1[1] + 2;
@@ -228,7 +230,7 @@ void multiplyMatrix(int *m1, int *m2, int *out)
 		if (sort == 1)
 		{
 			size[2] = m1[0] * m2[1] + 2;
-
+			printf("\n size[2]: %i\n\n", size[2]);
 			fill(out, size[2], 0);
 
 			out[0] = m1[0];
@@ -276,15 +278,13 @@ void multiplyMatrix(int *m1, int *m2, int *out)
 
 	size_t global_item_size[2];
 
-	global_item_size[0] = getGlobalitemsize(size[0]);
-	global_item_size[1] = getGlobalitemsize(m2[0]);
-
-
-	printf("|");
+	global_item_size[0] = getGlobalitemsize(m2[0]);
+	global_item_size[1] = getGlobalitemsize(size[0]);
+	
+	printf("m1[0] = %.2f\n", m1[0]);
 
  	MatrixOP(m1_ptr, m2_ptr, out, multi, size_ptr, global_item_size, 2);
 
-	printf("|\n");
 
 }
 /*

@@ -6,9 +6,9 @@
  */
 
 
-__kernel void MatrixOp(__global int *A,
-					   __global int *B, 
-					   __global int *C)
+__kernel void MatrixOp(__global float *A,
+					   __global float *B, 
+					   __global float *C)
 {
 
   	int x = get_global_id(0) + 2;

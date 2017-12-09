@@ -16,32 +16,35 @@
 int main(int argc, char **argv)
 {
 
-	int m2[] = { 3, 2,
-		1, 3, 
+	float m1[] = { 4, 2,
+		1, 7, 
 		4, 6,
-		7, 9};
-
-	int m1[] = {2, 2,
+		7, 9,
 		1, 7,
-		3, 4, };
+		};
 
-	int out[11];
+	float m2[] = {2, 4,
+		10, 7, 10, 7,
+		3,  4,  3, 4};
+	 
+	float out[16];
 
-	int *p1 = m1;
-	int *p2 = m2;
-	int *p3 = out;
+	float *p1 = m1;
+	float *p2 = m2;
+	float *p3 = out;
 
 	multiplyMatrix(p1, p2, p3);
 
 	int i = 0;
 	int p = 0;
 
+
 	while (i < (p3[0]*p3[1]))
 	{
 		p++;
 
-		printf("| %i |", p3[i+2]);
-		if (p == 2)
+		printf("| %.1f |", p3[i+2]);
+		if (p == p3[1])
 		{
 			printf("\n");
 			p = 0;
