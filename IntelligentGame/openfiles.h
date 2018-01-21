@@ -6,78 +6,37 @@
 #include <stdlib.h>
 #include <string.h>
 #include <CL/cl.h>
+#include <math.h>
 
-
+#define MAX_LEN 255
 #define MAX_SOURCE_SIZE (0x100000)
 
 
-
-int openfiles(int *output, const char *filename) // filename //functionname
+int openfiles(int *output, FILE *fp) // filename //functionname
 {
-	//open th wanted file
-	int length;
-	char *str;
+	int   i, words;
+	char *lines, filename[MAX_LEN];
+	int  *nums;
 
-	FILE * fp;
-	fp = fopen(filename, "r");
+	words = WordAmound(fp);
+	lines = (char*)malloc(words * sizeof(char));
+	nums  = (int *)malloc(words * sizeof(int));
 
-	//figure out the files length
-	fseek(fp, 0L, SEEK_END);
-	length = ftell(fp);
-	fseek(fp, 0L, SEEK_SET);
-	rewind(fp);
+	StrInt(fp, words, nums);
 
-	//correct the given length
-	length--;
+	fclose(fp);
 
-	//create 3 vars
-	char c;
-	str = (char *)calloc(length, sizeof(char));   //the second one serves as a buffer to change the single letters of the file to chars
-	int i = 0;	  //serves as a counter
+	for (i = 0; i < words; ++i)
+		printf("%i ", nums[i]);
 
-				  //every letter is read in written into the string "str" as char
-	while ((c = fgetc(fp)) != EOF)
-	{
-		str[i] = c;
-		i++;
-	}
-	fclose(fp); //close the file properly
-
-
-	int filecontent = getlength(filename); // infos
-	if (filecontent <= 0) {
-		printf("File empty, size = %i\n", length);
-		abort();
-	}
-
-
-	int counter = 0;
-	int pos = 0;
-	int var;
-	while (counter <= length - 2)
-	{
-		if (str[counter] != ' ')
-		{
-			var = str[counter] - '0';
-			output[pos] = output[pos] * 10 + var;//wtf
-
-
-		}
-		else {
-			pos++;
-			output[pos] = 0;
-		}
-
-		counter++;
-	}
-	return pos; // return length of the array ptr
+	return words; // return length of the array ptr
 }
 
-int getlength(const char * filename)
+int getlength(FILE *fp)
 {
-	//open file
-	FILE * fp;
-	fp = fopen(filename, "r");
+
+	//define var for the length of the file
+	int length;
 
 	if (!fp)
 	{
@@ -86,8 +45,6 @@ int getlength(const char * filename)
 		exit(1);
 	}
 
-	//define var for the length of the file
-	int length;
 
 	//get the length of the file
 	fseek(fp, 0L, SEEK_END);
@@ -131,5 +88,84 @@ void save(int* data, const char *filename, int length)
 	fclose(fp);
 
 
+}
+
+void StrInt(FILE *fp, int *arr)
+{
+	int i, c, num;
+	char ch;
+
+	i   = 0;
+	num = 0;
+	c   = 0;
+
+	rewind(fp);
+
+	while ((ch = fgetc(fp)) != EOF){
+
+		if (ch != ' ' && ch != '\n')
+			num = num * 10 + (ch - '0');
+		else{
+			arr[c] = num;
+			num    = 0;
+			c++;
+		}
+
+	}
+}
+
+void StrDouble(FILE *fp, double *arr)
+{
+
+	int    c, count, num;
+	char   ch;
+	double buf;
+
+	num = 0;
+	c = 0;
+	count = 1;
+
+	rewind(fp);
+
+	while (ch = fgetc(fp)) {
+
+		if (ch == '.')
+			count = 0;
+
+
+		if (ch != ' ' && ch != '\n' && ch != '.' && ch != EOF) {
+
+			count++;
+			num = num * 10 + (ch - '0');
+
+		}
+		else if (ch == ' ' || ch == '\n' || ch == EOF) {
+
+			buf = num / pow(10, count);
+			arr[c] = buf;
+			num = 0;
+			count = 0;
+			c++;
+		}
+
+		if (ch == EOF)
+			break;
+
+	}
+}
+
+int WordAmound(FILE *fp)
+{
+	int  words = 0;
+	char ch;
+
+	while ((ch = fgetc(fp)) != EOF)
+	{
+
+		if (ch == '\n' || ch == ' ')
+			words++;
+	}
+
+	return ++words;
 }
 #endif

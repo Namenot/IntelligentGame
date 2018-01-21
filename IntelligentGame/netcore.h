@@ -171,7 +171,45 @@ int netcore(const char filepath)
 	return 0;
 }
 
-//finish the two functions first
+// neue Funktionen (Update)
+
+//read the Config - File into an int array
+void getConfig(FILE *config, int *conf)
+{
+	StrInt(config, conf); 
+} 
+
+
+//read the Main Network - File into an double array
+void getNet(FILE *network, double *net)
+{
+	StrDouble(network, net);
+}
+
+
+//interpret the Config (layer amount, layer size, etc...)
+void InterpretConfig()
+{
+
+}
+
+
+//read one layer into an double array
+void getLayer(int *conf, double* net, double* layer, int num)
+{
+
+
+
+}
+
+
+//execute the Network 
+void execNet(double *layer, double *weights)
+{
+	multiplyMatrix(layer, weights, layer);
+}
+
+//finish StrFloat in openfiles!!
 
 /*
 TODO:

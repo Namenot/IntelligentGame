@@ -106,5 +106,11 @@
     <None Include="sigmoid.cl">
       <Filter>Header Files\CL\kernel</Filter>
     </None>
+    <None Include="neat.h.misc">
+      <Filter>misc</Filter>
+    </None>
+    <None Include="network.misc">
+      <Filter>misc</Filter>
+    </None>
   </ItemGroup>
 </Project>

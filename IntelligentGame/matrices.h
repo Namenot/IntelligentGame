@@ -8,7 +8,7 @@
 
 #define MAX_SOURCE_SIZE (0x100000)
 
-int sortsys(float *m1, float *m2)//-----------------------------------------------------------------------------------------------------------------------
+int sortsys(double *m1, double *m2)//-----------------------------------------------------------------------------------------------------------------------
 {
 
 	int ret;
@@ -27,7 +27,7 @@ int sortsys(float *m1, float *m2)//---------------------------------------------
 	return ret;
 }
 
-void fill(float *C, int size, int num)
+void fill(double *C, int size, int num)
 {
 	int i;
 
@@ -41,7 +41,7 @@ void fill(float *C, int size, int num)
 int getGlobalitemsize(int min)
 {
 	int newmin = min;
-	float testmin = min;
+	double testmin = min;
 
 	while (newmin / 8  != testmin / 8 )
 	{
@@ -82,7 +82,7 @@ void checkCLMeMError(cl_int ret)
 
 }
 
-void MatrixOP(float *matrix, float *matrix2, float *output, FILE* prog, int *sizes, size_t *global_item_size, int dim)//----------------------------------------------------------------------------------------------
+void MatrixOP(double *matrix, double *matrix2, double *output, FILE* prog, int *sizes, size_t *global_item_size, int dim)//----------------------------------------------------------------------------------------------
 {
 
 	int size1 = sizes[0];
@@ -115,9 +115,9 @@ void MatrixOP(float *matrix, float *matrix2, float *output, FILE* prog, int *siz
 	cl_mem mat2;
 	cl_mem out;
 
-	mat1 = clCreateBuffer(context, CL_MEM_USE_HOST_PTR, size1 * sizeof(int *), matrix, &ret);
-	mat2 = clCreateBuffer(context, CL_MEM_USE_HOST_PTR, size2 * sizeof(int *), matrix2, &ret);
-	out = clCreateBuffer(context, CL_MEM_COPY_HOST_PTR, size3 * sizeof(int *), output, &ret);
+	mat1 = clCreateBuffer(context, CL_MEM_USE_HOST_PTR, size1 * sizeof(double *), matrix, &ret);
+	mat2 = clCreateBuffer(context, CL_MEM_USE_HOST_PTR, size2 * sizeof(double *), matrix2, &ret);
+	out = clCreateBuffer(context, CL_MEM_COPY_HOST_PTR, size3 * sizeof(double *), output, &ret);
 
 	if (!mat1 || !mat2 || !out)
 	{
@@ -180,7 +180,7 @@ void MatrixOP(float *matrix, float *matrix2, float *output, FILE* prog, int *siz
 }
 
 
-void addMatrix(float *m1, float *m2, float *out)
+void addMatrix(double *m1, double *m2, double *out)
 {
 	int sizes = m1[0] * m2[1] + 2;
 
@@ -212,10 +212,10 @@ void addMatrix(float *m1, float *m2, float *out)
 
 }
 
-void multiplyMatrix(float *m1, float *m2, float *out)
+void multiplyMatrix(double *m1, double *m2, double *out)
 {
-	float *m1_ptr = NULL;
-	float *m2_ptr = NULL;
+	double *m1_ptr = NULL;
+	double *m2_ptr = NULL;
 
 	int size[3];
 	size[0] = m1[0] * m1[1] + 2;
@@ -269,7 +269,6 @@ void multiplyMatrix(float *m1, float *m2, float *out)
 
 	FILE* multi;
 	multi = fopen("multiply.cl","r");
-	//multi = fopen("test.cl", "r");
 
 	if (!multi)
 	{

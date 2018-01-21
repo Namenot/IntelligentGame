@@ -1,0 +1,15 @@
+2 Stages:
+
+1 : Configurate Network (get files and ajust)
+2 : execute the net itself
+
+Stage 1:_______________
+- read the config - file of the network
+- gather informations from it 
+	- amount of layers
+	- amount of Neurons (in each layer)
+- read the network file
+- gather infos
+	- noted every connection as weights
+
+Stage 2:_______________

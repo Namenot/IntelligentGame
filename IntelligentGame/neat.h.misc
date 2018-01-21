@@ -1,0 +1,38 @@
+3 Stages:
+
+1 : Input to react upon
+2 : Neurons
+3 : Output which is to be compared to an ideal (Fittness)
+
+Stage 1:_______________
+- gives the input to react upon
+- simple set of data
+- 1 is not very interresting as it never changes
+
+Stage 2:_______________
+- Neuronal structures
+- start with three (very small) networks
+- run them with the input data
+
+Stage 3:_______________
+- calculate the fittness lvl of every net
+- compare the fittness lvl of every net
+- select the 3 fittests
+- breed them together to 9 new ones 
+	- add the networks together to create a new
+	- let randome mutations occur 
+		- add about 10% of the courrent amout of neurons  (at least one)
+
+needed functions are:
+	
+	external requirements:
+	- exec a network
+	
+	internal requirements:
+	- some fittness formula functions
+		- sigmoid
+	- compare & select fittness lvl
+	- breeding
+		- main 
+		- mutations
+

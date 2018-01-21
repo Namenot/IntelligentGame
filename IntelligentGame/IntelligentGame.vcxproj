@@ -43,6 +43,8 @@
     <None Include="multiply.cl" />
     <None Include="multiplyMatrix.misc" />
     <None Include="neat.cl" />
+    <None Include="neat.h.misc" />
+    <None Include="network.misc" />
     <None Include="opengl.misc" />
     <None Include="sigmoid.cl" />
     <None Include="test.cl" />
