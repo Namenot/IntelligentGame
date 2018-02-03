@@ -27,21 +27,21 @@ int sortsys(double *m1, double *m2)//-------------------------------------------
 	return ret;
 }
 
-void fill(double *C, int size, int num)
+void filler(double *C, int sizes, int num)
 {
 	int i;
 
-	for (i = 0; size+2 > i; i++)
+	for (i = 0; sizes+2 > i; i++)
 	{
 		C[i] = num;
 	}
 
 }
 
-int getGlobalitemsize(int min)
+int getGlobalitemsize(int mins)
 {
-	int newmin = min;
-	double testmin = min;
+	int newmin = mins;
+	double testmin = mins;
 
 	while (newmin / 8  != testmin / 8 )
 	{
@@ -53,7 +53,7 @@ int getGlobalitemsize(int min)
 
 void checkCLMeMError(cl_int ret)
 {
-	
+
 	printf("\n<FATAL-ERROR> UNABLE TO WRITE TO MEMORY:\n\n");
 
 	switch (ret)
@@ -132,7 +132,7 @@ void MatrixOP(double *matrix, double *matrix2, double *output, FILE* prog, int *
 	ret = clBuildProgram(program, 1, &device_id, NULL, NULL, NULL);
 
 	cl_kernel kernel = clCreateKernel(program, "MatrixOp", &ret);
-	
+
 	/*
 	Kernel Arguments
 	*/
@@ -140,7 +140,7 @@ void MatrixOP(double *matrix, double *matrix2, double *output, FILE* prog, int *
 	ret = clSetKernelArg(kernel, 0, sizeof(cl_mem), (void *)&mat1);
 	ret = clSetKernelArg(kernel, 1, sizeof(cl_mem), (void *)&mat2);
 	ret = clSetKernelArg(kernel, 2, sizeof(cl_mem), (void *)&out);
-	
+
 	/*
 	end Kernel Arguments
 	*/
@@ -160,7 +160,6 @@ void MatrixOP(double *matrix, double *matrix2, double *output, FILE* prog, int *
 	ret = clEnqueueNDRangeKernel(command_queue, kernel, dim, NULL, global_item_size, local_item_size, 0, NULL, NULL);
 
 	printf("size3 : %i\n", size3);
-	printf("new size3 : %i\n", size3* sizeof(int *));
 	ret = clEnqueueReadBuffer(command_queue, out, CL_TRUE, 0, size3 * sizeof(int *), output, 0, NULL, NULL);
 
 	printf("?\n");
@@ -184,17 +183,17 @@ void addMatrix(double *m1, double *m2, double *out)
 {
 	int sizes = m1[0] * m2[1] + 2;
 
-	int size[3];
-	size[0] = sizes;
-	size[1] = sizes;
-	size[2] = sizes;
-	
-	fill(out, sizes, 0);
+	int sizer[3];
+	sizer[0] = sizes;
+	sizer[1] = sizes;
+	sizer[2] = sizes;
+
+	filler(out, sizes, 0);
 
 	out[0] = m1[0];
 	out[1] = m2[1];
 
-	int *size_ptr = size;
+	int *size_ptr = sizer;
 
 	FILE *add;
 	add = fopen("add.cl", "r");
@@ -203,9 +202,9 @@ void addMatrix(double *m1, double *m2, double *out)
 	{
 		printf("File not found! \nUnable to continue");
 	}
-	
+
 	size_t global_item_size[1];
-	global_item_size[0] = getGlobalitemsize(size[0]);
+	global_item_size[0] = getGlobalitemsize(sizer[0]);
 
 	MatrixOP(m1, m2, out, add, size_ptr, global_item_size, 1);
 
@@ -217,21 +216,21 @@ void multiplyMatrix(double *m1, double *m2, double *out)
 	double *m1_ptr = NULL;
 	double *m2_ptr = NULL;
 
-	int size[3];
-	size[0] = m1[0] * m1[1] + 2;
-	size[1] = m2[0] * m2[1] + 2;
-	
+	int sizer[3];
+	sizer[0] = m1[0] * m1[1] + 2;
+	sizer[1] = m2[0] * m2[1] + 2;
+
 	/*
 	sort the two matrices
 	*/
-	int sort = sortsys(m1, m2);
+	int sorter = sortsys(m1, m2);
 
-	if (sort != 0) {
-		if (sort == 1)
+	if (sorter != 0) {
+		if (sorter == 1)
 		{
-			size[2] = m1[0] * m2[1] + 2;
-			printf("\n size[2]: %i\n\n", size[2]);
-			fill(out, size[2], 0);
+			sizer[2] = m1[0] * m2[1] + 2;
+			printf("\n size[2]: %i\n\n", sizer[2]);
+			filler(out, sizer[2], 0);
 
 			out[0] = m1[0];
 			out[1] = m2[1];
@@ -240,11 +239,11 @@ void multiplyMatrix(double *m1, double *m2, double *out)
 			m2_ptr = m2;
 
 		}
-		else if (sort == 2)
+		else if (sorter == 2)
 		{
-			size[2] = m1[1] * m2[0] + 2;
+			sizer[2] = m1[1] * m2[0] + 2;
 
-			fill(out, size[2], 0);
+			filler(out, sizer[2], 0);
 
 			out[0] = m2[0];
 			out[1] = m1[1];
@@ -265,7 +264,7 @@ void multiplyMatrix(double *m1, double *m2, double *out)
 	*/
 
 	int *size_ptr;
-	size_ptr = size;
+	size_ptr = sizer;
 
 	FILE* multi;
 	multi = fopen("multiply.cl","r");
@@ -278,8 +277,8 @@ void multiplyMatrix(double *m1, double *m2, double *out)
 	size_t global_item_size[2];
 
 	global_item_size[0] = getGlobalitemsize(m2[0]);
-	global_item_size[1] = getGlobalitemsize(size[0]);
-	
+	global_item_size[1] = getGlobalitemsize(sizer[0]);
+
 	printf("m1[0] = %.2f\n", m1[0]);
 
  	MatrixOP(m1_ptr, m2_ptr, out, multi, size_ptr, global_item_size, 2);

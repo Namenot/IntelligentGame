@@ -1,0 +1,20 @@
+# depslib dependency file v1.0
+1517601246 source:/home/aaron/IntelligentGame/IntelligentGame/main.cpp
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<CL/cl.h>
+	"matrices.h"
+
+1517601282 /home/aaron/IntelligentGame/IntelligentGame/matrices.h
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<CL/cl.h>
+
+1517601028 source:/home/aaron/IntelligentGame/IntelligentGame/testheaders.cpp
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<CL/cl.h>
+

@@ -8,7 +8,7 @@
 
 #define MAX_SOURCE_SIZE (0x100000)
 
-void sigmoid(float *m1)
+void sigmoid(double *m1)
 {
 
 	FILE *prog;
@@ -38,7 +38,7 @@ void sigmoid(float *m1)
 	*/
 	cl_mem mat;
 
-	mat = clCreateBuffer(context, CL_MEM_COPY_HOST_PTR, m1[0] * m1[1]* sizeof(float *), m1, &ret);
+	mat = clCreateBuffer(context, CL_MEM_COPY_HOST_PTR, m1[0] * m1[1]* sizeof(double*), m1, &ret);
 
 
 	/*
@@ -62,11 +62,11 @@ void sigmoid(float *m1)
 
 	size_t local_item_size = 1;
 	size_t global_item_size = m1[1];
-	
+
 
 	ret = clEnqueueNDRangeKernel(command_queue, kernel, 1, NULL, &global_item_size, &local_item_size, 0, NULL, NULL);
 
-	ret = clEnqueueReadBuffer(command_queue, mat, CL_TRUE, 0, m1[1] * sizeof(int *), m1, 0, NULL, NULL);
+	ret = clEnqueueReadBuffer(command_queue, mat, CL_TRUE, 0, m1[1] * sizeof(double *), m1, 0, NULL, NULL);
 
 	ret = clFlush(command_queue);
 	ret = clFinish(command_queue);

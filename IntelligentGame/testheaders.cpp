@@ -4,7 +4,7 @@
 
 
 //opencl
-#include <CL\cl.h>
+#include <CL/cl.h>
 
 int test(int argc, char**argv)
 {
