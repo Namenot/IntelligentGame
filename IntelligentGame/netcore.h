@@ -28,26 +28,26 @@ void getNet(FILE *network, double *net)
 void InterpretConfig(int *conf, int num, int *interpretation)
 {
 
-    interpretation[0] = conf[0]; //size of network
+    interpretation[0] = conf[0					]; //amount of layers
     interpretation[1] = conf[num * 2 - 1]; //startingpointy of Layer// num starts at 1
-    interpretation[2] = conf[num * 2]; //endpoint of the Layer
-    interpretation[3] = interpretation[2] - interpretation[1];
+    interpretation[2] = conf[num * 2    ]; //endpoint of the Layer
+    interpretation[3] = interpretation[2] - interpretation[1]; //size of the layer / weights
 
 }
 
 
 //read one layer into an double array
-void getLayer(int *confinterpretation, double* net, double* layer)
+void getLayer(int *confinterpretation, double *net, double *weights)
 {
 
     int i;
 
-    layer[0] = confinterpretation[3];
+    weights[0] = confinterpretation[3];
 
     for (i = 1; i <= confinterpretation[3]; ++i)
     {
 
-        layer[i] = net[confinterpretation[1] + i];
+        weights[i] = net[confinterpretation[1] + i];
 
     }
 
