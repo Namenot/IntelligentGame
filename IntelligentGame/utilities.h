@@ -21,7 +21,7 @@ int isFile(char *filename)
 
 }
 
-int isFolder(path)
+int isFolder(char *path)
 {
 	DIR *dir = opendir(path);
 	if (dir)

@@ -102,10 +102,10 @@ int handlecmds(char *command, char *net, char *input, char *currentpath)
 		printf("<Err> given path neither points to a File nor a Folder\n");
 	}
 
-	char strset[4] = "set\0";
-	char strls[3] = "ls\0";
-	char strcd[3] = "cd\0";
-	char strexec[5] = "exec\0";
+	char strset[5] = "set\0";
+	char strls[4] = "ls\0";
+	char strcd[4] = "cd\0";
+	char strexec[6] = "exec\0";
 
 	if (!path)
 	{
@@ -154,7 +154,7 @@ int terminal(char *inputpath, char *netpath)
 	int cms;
 
 	char currentpath[255];
-	char defaultpath[45] = "c:\\Users\\Aaron\\Desktop\\KNN-Neu\\misc";
+	char defaultpath[6] = "/home";
 	char command[255];
 
 	char netbuffer[255];
@@ -174,7 +174,7 @@ int terminal(char *inputpath, char *netpath)
 		command[strlen(command)] = '\0';
 		fflush(stdin);
 
-		cms = handlecmds(&command, &netbuffer, &inpbuffer, &currentpath);
+		cms = handlecmds(command, netbuffer, inpbuffer, currentpath);
 
 		if (cms == 1)
 		{

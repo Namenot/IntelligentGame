@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "terminal.h"
 
 //opencl
 #include <CL/cl.h>
@@ -16,6 +17,20 @@ int test(int argc, char**argv)
 		printf("\nDetected OpenCL platforms: %d", numPlatforms);
 	else
 		printf("\nError calling clGetPlatformIDs. Error code: %d", err);
+
+	return 0;
+}
+
+int main()
+{
+
+	char *inp;
+	char *net;
+
+	terminal(inp, net);
+
+	printf("%s\n", inp);
+	printf("%s\n", net);
 
 	return 0;
 }

@@ -1,4 +1,3 @@
-#pragma once
 #ifndef _OPENFILESH_
 #define _OPENFILESH_
 
@@ -11,26 +10,6 @@
 #define MAX_LEN 255
 #define MAX_SOURCE_SIZE (0x100000)
 
-
-int openfiles(int *output, FILE *fp) // filename //functionname
-{
-	int   i, words;
-	char *lines, filename[MAX_LEN];
-	int  *nums;
-
-	words = WordAmound(fp);
-	lines = (char*)malloc(words * sizeof(char));
-	nums  = (int *)malloc(words * sizeof(int));
-
-	StrInt(fp, words, nums);
-
-	fclose(fp);
-
-	for (i = 0; i < words; ++i)
-		printf("%i ", nums[i]);
-
-	return words; // return length of the array ptr
-}
 
 int getlength(FILE *fp)
 {
@@ -76,7 +55,7 @@ void save(int* data, const char *filename, int length)
 	fp = fopen(filename, "w");
 	if (fp == NULL)
 	{
-		printf("<Error> opening File : %c !\n", filename);
+		printf("<Error> opening File : %s !\n", filename);
 		exit(1);
 	}
 	int i = 0;
@@ -92,10 +71,9 @@ void save(int* data, const char *filename, int length)
 
 void StrInt(FILE *fp, int *arr)
 {
-	int i, c, num;
+	int c, num;
 	char ch;
 
-	i   = 0;
 	num = 0;
 	c   = 0;
 
@@ -167,5 +145,25 @@ int WordAmound(FILE *fp)
 	}
 
 	return ++words;
+}
+
+int openfiles(int *output, FILE *fp) // filename //functionname
+{
+	int   i, words;
+	char *lines, filename[MAX_LEN];
+	int  *nums;
+
+	words = WordAmound(fp);
+	lines = (char*)malloc(words * sizeof(char));
+	nums  = (int *)malloc(words * sizeof(int));
+
+	StrInt(fp, nums);
+
+	fclose(fp);
+
+	for (i = 0; i < words; ++i)
+		printf("%i ", nums[i]);
+
+	return words; // return length of the array ptr
 }
 #endif
