@@ -7,7 +7,7 @@
 #include "netcore.h"
 
 
-void blackbox(double *layer1, double *layer2, FILE *weights)
+void blackBox(double *layer1, double *layer2, FILE *weights)
 {
 
   double *weight; // malloc size
@@ -26,10 +26,10 @@ void blackbox(double *layer1, double *layer2, FILE *weights)
 
 }
 
-void loosenet()
+void looseNet()
 {}
 
-void defaultnet(FILE *conf, FILE *net)
+void defaultNet(FILE *conf, FILE *net)
 {
 
   int    *config, *interp, i; //malloc size
@@ -57,3 +57,6 @@ void defaultnet(FILE *conf, FILE *net)
 
 
 }
+
+void looseLayers()
+{}
