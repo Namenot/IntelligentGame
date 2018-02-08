@@ -92,13 +92,15 @@ int handlecmds(char *command, char *net, char *input, char *currentpath)
 		token = strtok(NULL, c);
 	}
 
-	printf("path : %s\n", path);
+	if(path == NULL)
+	{
+		path = currentpath;
+	}
 
 	//check whether file or Folder exists
 	ret = 0;
-	//ret = checkErr(isFile(path), "");
-
-	//cdtrue = checkErr(isFolder(path), "");
+	ret = checkErr(isFile(path), "");
+	cdtrue = checkErr(isFolder(path), "");
 
 	if (ret == 0 && cdtrue == 0)
 	{
@@ -158,7 +160,7 @@ int terminal(char *inputpath, char *netpath)
 	int cms;
 
 	char currentpath[255];
-	char defaultpath[6] = "/home";
+	char defaultpath[12] = "/home/aaron";
 	char command[255];
 
 	char netbuffer[255];
@@ -174,7 +176,7 @@ int terminal(char *inputpath, char *netpath)
 	while (i == 0)
 	{
 
-		printf("Welcome User\n<%s> ", currentpath);
+		printf("<%s> ", currentpath);
 		scanf(" %[^\n]", command);
 
 		command[strlen(command)] = '\0';

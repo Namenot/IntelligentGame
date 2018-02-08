@@ -33,6 +33,6 @@ int main()
 	printf("%s\n", net);
 
 
-	printf("new insta");
+	printf("new instance of th");
 	return 0;
 }

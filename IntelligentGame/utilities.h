@@ -17,7 +17,6 @@ int isFile(char *filename)
 		return 0;
 	}
 	fclose(fp);
-	printf("is File\n");
 	return 1;
 
 }
