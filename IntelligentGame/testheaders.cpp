@@ -24,13 +24,15 @@ int test(int argc, char**argv)
 int main()
 {
 
-	char *inp;
-	char *net;
+	char *inp = (char *)malloc (255 * sizeof(char *));
+	char *net = (char *)malloc (255 * sizeof(char *));
 
 	terminal(inp, net);
 
 	printf("%s\n", inp);
 	printf("%s\n", net);
 
+
+	printf("new insta");
 	return 0;
 }

@@ -92,10 +92,13 @@ int handlecmds(char *command, char *net, char *input, char *currentpath)
 		token = strtok(NULL, c);
 	}
 
+	printf("path : %s\n", path);
+
 	//check whether file or Folder exists
 	ret = 0;
-	ret = checkErr(isFile(path), "");
-	cdtrue = checkErr(isFolder(path), "");
+	//ret = checkErr(isFile(path), "");
+
+	//cdtrue = checkErr(isFolder(path), "");
 
 	if (ret == 0 && cdtrue == 0)
 	{
@@ -107,43 +110,44 @@ int handlecmds(char *command, char *net, char *input, char *currentpath)
 	char strcd[4] = "cd\0";
 	char strexec[6] = "exec\0";
 
-	if (!path)
+	if (path == NULL)
 	{
-		path = currentpath;
+		printf("<Fatal Error> no path given\n");
 	}
+	else{
 
-	//exec the given command
-	if (strcmp(strset, newcmd) == 0)
-	{
-		ret = set(&parameter[0]);
-		if (ret == 0)
+		//exec the given command
+		if (strcmp(strset, newcmd) == 0)
 		{
-			strcpy(net, path);
+			ret = set(&parameter[0]);
+			if (ret == 0)
+			{
+				strcpy(net, path);
+
+			}
+			else if (ret == 1)
+			{
+				strcpy(input, path);
+			}
 
 		}
-		else if (ret == 1)
+		else if (strcmp(strls, newcmd) == 0)
 		{
-			strcpy(input, path);
+			ret = ls(path);
 		}
-
-	}
-	else if (strcmp(strls, newcmd) == 0)
-	{
-		ret = ls(path);
-	}
-	else if (strcmp(strcd, newcmd) == 0)
-	{
-		if (cdtrue == 1)
+		else if (strcmp(strcd, newcmd) == 0)
 		{
-			strcpy(currentpath, path);
+			if (cdtrue == 1)
+			{
+				strcpy(currentpath, path);
+			}
+
 		}
-
+		else if (strcmp(strexec, newcmd) == 0)
+		{
+			return 1;
+		}
 	}
-	else if (strcmp(strexec, newcmd) == 0)
-	{
-		return 1;
-	}
-
 	return 0;
 }
 
@@ -169,8 +173,10 @@ int terminal(char *inputpath, char *netpath)
 
 	while (i == 0)
 	{
-		printf("<%s> ", currentpath);
-		scanf("%[^\n]", command);
+
+		printf("Welcome User\n<%s> ", currentpath);
+		scanf(" %[^\n]", command);
+
 		command[strlen(command)] = '\0';
 		fflush(stdin);
 
