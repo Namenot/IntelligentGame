@@ -36,3 +36,6 @@ int main()
 	printf("new instance of th");
 	return 0;
 }
+
+//TODO : fix isFile always beeing true
+//TODO : set() crashing the whole thing
