@@ -2,37 +2,43 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <dirent.h>
-
+#include <unistd.h>
+#include <errno.h>
 
 //check whether a file exists
 int isFile(char *filename)
 {
 
-	FILE *fp;
-	fp = fopen(filename, "r");
+	int is;
+ 	is = 0;
 
-	if (!fp)
+	if (access( filename, F_OK ) != -1)
 	{
-		fclose(fp);
-		return 0;
+		is = 1;
 	}
-	fclose(fp);
-	return 1;
+
+	return is;
 
 }
 
 int isFolder(char *path)
 {
+
 	DIR *dir = opendir(path);
+
+	int is;
+	is = 0;
+
 	if (dir)
 	{
-		return 1;
-		closedir(dir);
-	}
-	else
+		is = 1;
+	}else if(ENOENT == errno)
 	{
-		return 0;
+		is = 0;
 	}
+
+	closedir(dir);
+	return is;
 }
 
 //dump an error with the representing error msg

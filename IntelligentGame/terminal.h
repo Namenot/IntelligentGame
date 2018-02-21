@@ -22,6 +22,9 @@ int set(char *parameter)
 	else if (strcmp(net, parameter) == 0)
 	{
 		IoN = 0;
+	}else if(parameter == NULL)
+	{
+		printf("Help\n");
 	}
 	else
 	{
@@ -67,10 +70,9 @@ int handlecmds(char *command, char *net, char *input, char *currentpath)
 	int cdtrue;
 	char *path;
 	char *newcmd;
-	char *parameter = NULL;
+	char *parameter;
 
 	//split chars
-
 	const char c[] = " ";
 	char *token;
 	int count = 0;
@@ -96,7 +98,6 @@ int handlecmds(char *command, char *net, char *input, char *currentpath)
 	{
 		path = currentpath;
 	}
-
 	//check whether file or Folder exists
 	ret = 0;
 	ret = checkErr(isFile(path), "");
@@ -106,6 +107,7 @@ int handlecmds(char *command, char *net, char *input, char *currentpath)
 	{
 		printf("<Err> given path neither points to a File nor a Folder\n");
 	}
+
 
 	char strset[5] = "set\0";
 	char strls[4] = "ls\0";
@@ -122,6 +124,7 @@ int handlecmds(char *command, char *net, char *input, char *currentpath)
 		if (strcmp(strset, newcmd) == 0)
 		{
 			ret = set(&parameter[0]);
+			printf("parameter : %i \n", ret);
 			if (ret == 0)
 			{
 				strcpy(net, path);

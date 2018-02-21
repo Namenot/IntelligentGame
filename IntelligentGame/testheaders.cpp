@@ -33,9 +33,15 @@ int main()
 	printf("%s\n", net);
 
 
-	printf("new instance of th");
+	printf("new instance of the program wich is ");
 	return 0;
 }
 
-//TODO : fix isFile always beeing true
 //TODO : set() crashing the whole thing
+//				- parameter is the 3rd argument. set() crashes
+//				  if it cant find parameter and / or file arg
+//					strtk() splits *str in 3 token -> fails with too few args
+//TODO : solution fot the above part ..
+//				- devide it only in two token
+//				- hand in always the second parameter
+//				- but make sure its never longer than one char
