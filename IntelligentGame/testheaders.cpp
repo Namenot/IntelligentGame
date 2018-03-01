@@ -33,7 +33,7 @@ int main()
 	printf("%s\n", net);
 
 
-	printf("new instance of the program wich is ");
+	printf("new instance of the program wich is nesseser ");
 	return 0;
 }
 

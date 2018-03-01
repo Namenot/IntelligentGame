@@ -1,3 +1,4 @@
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -19,8 +20,7 @@ void comp()
 void bprop()
 {
 //init OpenCL
-
-
-
-
 }
+
+void mine()
+{}

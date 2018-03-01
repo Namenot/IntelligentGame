@@ -15,21 +15,32 @@ int set(char *parameter)
 	char net[] = "n";
 	char inp[] = "i";
 
-	if (strcmp(inp, parameter) == 0)
+	if(parameter != NULL)
 	{
-		IoN = 1;
-	}
-	else if (strcmp(net, parameter) == 0)
-	{
-		IoN = 0;
-	}else if(parameter == NULL)
-	{
-		printf("Help\n");
+
+		if (strcmp(inp, parameter) == 0)
+		{
+			IoN = 1;
+		}
+		else if (strcmp(net, parameter) == 0)
+		{
+			IoN = 0;
+		}else if(parameter == NULL)
+		{
+			printf("Help\n");
+		}
+		else
+		{
+			checkErr(0, "<Err> Unknown parameter in set()");
+			IoN = 2;
+		}
 	}
 	else
 	{
-		checkErr(0, "<Err> Unknown parameter in set()");
-		IoN = 2;
+		printf("\n------------------------------------------------------\n");
+		printf("<Err> can't set() as either the parameter or the file / \n");
+		printf("      path wasn't specified				                      \n");
+		printf("------------------------------------------------------\n\n");
 	}
 
 	return IoN;
@@ -100,12 +111,14 @@ int handlecmds(char *command, char *net, char *input, char *currentpath)
 	}
 	//check whether file or Folder exists
 	ret = 0;
-	ret = checkErr(isFile(path), "");
-	cdtrue = checkErr(isFolder(path), "");
+	ret 	 = isFile(path  );
+	cdtrue = isFolder(path);
 
 	if (ret == 0 && cdtrue == 0)
 	{
+		printf("\n------------------------------------------------------\n");
 		printf("<Err> given path neither points to a File nor a Folder\n");
+		printf("------------------------------------------------------\n\n");
 	}
 
 
@@ -124,7 +137,6 @@ int handlecmds(char *command, char *net, char *input, char *currentpath)
 		if (strcmp(strset, newcmd) == 0)
 		{
 			ret = set(&parameter[0]);
-			printf("parameter : %i \n", ret);
 			if (ret == 0)
 			{
 				strcpy(net, path);
