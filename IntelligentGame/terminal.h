@@ -7,6 +7,10 @@
 #include "utilities.h"
 #include "openfiles.h"
 
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_GREEN   "\x1b[92m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+
 int set(char *parameter)
 {
 
@@ -29,18 +33,11 @@ int set(char *parameter)
 		{
 			printf("Help\n");
 		}
-		else
-		{
-			checkErr(0, "<Err> Unknown parameter in set()");
-			IoN = 2;
-		}
 	}
 	else
 	{
-		printf("\n------------------------------------------------------\n");
-		printf("<Err> can't set() as either the parameter or the file / \n");
-		printf("      path wasn't specified				                      \n");
-		printf("------------------------------------------------------\n\n");
+		printf(ANSI_COLOR_RED     "<Err> can't set() as either the parameter or the file / "     ANSI_COLOR_RESET "\n");
+		printf(ANSI_COLOR_RED     "      path wasn't specified				                      "     ANSI_COLOR_RESET "\n");
 	}
 
 	return IoN;
@@ -116,9 +113,8 @@ int handlecmds(char *command, char *net, char *input, char *currentpath)
 
 	if (ret == 0 && cdtrue == 0)
 	{
-		printf("\n------------------------------------------------------\n");
-		printf("<Err> given path neither points to a File nor a Folder\n");
-		printf("------------------------------------------------------\n\n");
+
+		printf(ANSI_COLOR_RED     "<Err> given path neither points to a File nor a Folder"     ANSI_COLOR_RESET "\n");
 	}
 
 
@@ -129,7 +125,7 @@ int handlecmds(char *command, char *net, char *input, char *currentpath)
 
 	if (path == NULL)
 	{
-		printf("<Fatal Error> no path given\n");
+		printf(ANSI_COLOR_RED"<Fatal Error> no path given\n" ANSI_COLOR_RESET);
 	}
 	else{
 
@@ -191,7 +187,7 @@ int terminal(char *inputpath, char *netpath)
 	while (i == 0)
 	{
 
-		printf("<%s> ", currentpath);
+		printf(ANSI_COLOR_GREEN "<%s> " ANSI_COLOR_RESET, currentpath);
 		scanf(" %[^\n]", command);
 
 		command[strlen(command)] = '\0';
