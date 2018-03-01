@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "header/utilities.h"
-#include "header/openfiles.h"
+#include "utilities.h"
+#include "openfiles.h"
 
 
 int interface(char *Net, char *Input, int training)
