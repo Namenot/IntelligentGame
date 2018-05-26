@@ -34,7 +34,7 @@ int main()
 
 
 	printf("new instance of the program wich is nessesery ");
-	printf("Test\n");
+	printf("Test1\n");
 	return 0;
 }
 
